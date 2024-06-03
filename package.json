@@ -1,24 +1,36 @@
 {
-  "name": "customizable-menu",
+  "name": "hide-menu",
   "version": "2.2.0",
-  "description": "This plugin allows you to add any command to Obsidian's right-click menu.",
+  "description": "This plugin allows you to hide any command from Obsidian's right-click menu.",
   "main": "main.js",
   "scripts": {
-    "dev": "rollup --config rollup.config.js -w",
-    "build": "rollup --config rollup.config.js --environment BUILD:production"
+    "prebuild": "tsc --noEmit --skipLibCheck",
+    "build": "node esbuild.config.mjs --production",
+    "dev:prod": "node esbuild.config.mjs --vault",
+    "dev": "node esbuild.config.mjs",
+    "export": "node esbuild.config.mjs --production --vault",
+    "bump": "node commit-and-tag-version.mjs",
+    "postbump": "git push --follow-tags origin master",
+    "predeploy": "pnpm run bump",
+    "deploy": "pnpm run export",
+    "lint": "pnpm biome lint --apply src/",
+    "generate": "node generate.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^18.0.0",
-    "@rollup/plugin-node-resolve": "^11.2.1",
-    "@rollup/plugin-typescript": "^8.2.1",
-    "@types/node": "^14.14.37",
-    "monkey-around": "^2.3.0",
-    "obsidian": "^0.12.0",
-    "rollup": "^2.32.1",
-    "tslib": "^2.2.0",
-    "typescript": "^4.2.4"
+    "@biomejs/biome": "^1.7.3",
+    "@types/node": "^20.14.0",
+    "builtin-modules": "3",
+    "commander": "^12.1.0",
+    "commit-and-tag-version": "^12.4.1",
+    "dedent": "^1.5.3",
+    "dotenv": "^16.4.5",
+    "esbuild": "^0.21.4",
+    "monkey-around": "^3.0.0",
+    "obsidian": "1.5.7-1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5"
   }
 }

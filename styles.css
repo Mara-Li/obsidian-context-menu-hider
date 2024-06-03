@@ -1,23 +1,31 @@
-/*Icon Picker*/
-.custom-menu-icon {
-    transform: translateY(3px);
-    margin-right: 8px;
+.custom-menu-settings .setting-item.no-display .setting-item-info {
+  display: none;
 }
 
-.custom-menu-icon-container{
-    display: flex;
+.custom-menu-settings .setting-item.no-display .setting-item-control button,
+.custom-menu-settings .setting-item.no-display .setting-item-control textarea,
+.custom-menu-settings .setting-item.no-display .setting-item-control input {
+  width: 100%;
 }
 
-.custom-menu-settings-icon {
-    height: 20px;
-    margin-right: 0.5rem;
-    transform: translateY(2px);
-}
-
-.custom-menu-flex {
-    display: flex;
+.custom-menu-settings .setting-item.no-display .setting-item-control textarea {
+  height: 30ch;
 }
 
 div.custom-menu-hide-item {
-    display: none;
+  display: none;
+}
+
+.custom-menu-settings .error {
+  border-color: var(--text-error);
+  background-color: var(--background-modifier-error);
+}
+
+.custom-menu-settings .error:hover {
+  background-color: var(--background-modifier-error-hover);
+  border-color: var(--text-error);
+}
+
+.custom-menu-settings .error:focus {
+  box-shadow: 0 0 0 2px var(--text-error);
 }

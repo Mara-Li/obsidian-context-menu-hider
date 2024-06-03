@@ -1,10 +1,10 @@
 {
-	"id": "customizable-menu",
-	"name": "Customizable Menu",
+	"id": "context-command-hider",
+	"name": "Context Command Hider",
 	"version": "2.2.0",
 	"minAppVersion": "0.12.11",
-	"description": "Allows you to add any command to Obsidian's right-click menu.",
-	"author": "kzhovn",
-	"authorUrl": "https://github.com/kzhovn/",
+	"description": "Allows you to hide any command from the Obsidian's right-click menu.",
+	"author": "kzhovn, Mara-Li",
+	"authorUrl": "https://github.com/Mara-Li/",
 	"isDesktopOnly": false
 }
