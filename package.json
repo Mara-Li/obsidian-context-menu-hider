@@ -32,5 +32,8 @@
     "obsidian": "1.5.7-1",
     "tslib": "^2.6.2",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "ansi-colors": "^4.1.3"
   }
 }
