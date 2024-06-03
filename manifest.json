@@ -1,7 +1,7 @@
 {
 	"id": "context-command-hider",
 	"name": "Context Command Hider",
-	"version": "2.2.0",
+	"version": "0.0.0",
 	"minAppVersion": "0.12.11",
 	"description": "Allows you to hide any command from the Obsidian's right-click menu.",
 	"author": "kzhovn, Mara-Li",

@@ -1,6 +1,6 @@
 {
-  "name": "hide-menu",
-  "version": "2.2.0",
+  "name": "context-command-hider",
+  "version": "0.0.0",
   "description": "This plugin allows you to hide any command from Obsidian's right-click menu.",
   "main": "main.js",
   "scripts": {
