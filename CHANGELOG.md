@@ -1,0 +1,1 @@
+## [0.0.1](https://github.com/Mara-Li/obsidian-customizable-menu/compare/2.2.0...0.0.1) (2024-06-03)
