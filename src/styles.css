@@ -29,3 +29,7 @@ div.custom-menu-hide-item {
 .custom-menu-settings .error:focus {
   box-shadow: 0 0 0 2px var(--text-error);
 }
+
+.menu-separator:has(+ div.custom-menu-hide-item) {
+  display: none;
+}
