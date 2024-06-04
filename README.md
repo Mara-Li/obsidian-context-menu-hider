@@ -7,6 +7,12 @@ Add the name of the command to hide exactly as it appears in the Obsidian menu. 
 
 If you would like to style the listed commands yourself, instead of simply removing them, the selector is `div.custom-menu-hide-item`.
 
+Regex are supported if the text is enclosed by `/` (e.g. `/^Open in default app$/`), as flags (`i`, `g`, `m`, `s`) are supported.
+
+You can try [regex here](https://regex101.com/) but don't forget to set the flavor on **ECMAScript (JavaScript)**.
+
+When a command is added or removed, the menu will automatically hide them, without needing to reload Obsidian or the plugin.
+
 ## Thanks
 - This plugin was initially a fork of phibr0's excellent [customizable sidebar](https://github.com/phibr0/obsidian-customizable-sidebar)
 - The code for hiding menu items comes in part from Panossa's [Mindful Obsidian](https://github.com/Panossa/mindful-obsidian/blob/master/main.ts)
