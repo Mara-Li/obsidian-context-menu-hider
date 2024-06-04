@@ -33,3 +33,31 @@ div.custom-menu-hide-item {
 .menu-separator:has(+ div.custom-menu-hide-item) {
   display: none;
 }
+
+.custom-menu-settings .no-display-control .setting-item-control {
+  display: none;
+}
+
+.custom-menu-settings .no-display-control .setting-item-info {
+  width: 100%;
+}
+
+.custom-menu-settings .width-100 input {
+  width: 100%;
+}
+
+.custom-menu-settings .no-border-top {
+  border-top: none;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.custom-menu-settings .clickable-icon.extra-setting-button.is-disabled {
+  opacity: 0.5;
+}
+.custom-menu-settings .clickable-icon.extra-setting-button.is-disabled:active,
+.custom-menu-settings .clickable-icon.extra-setting-button.is-disabled:hover {
+  background-color: transparent;
+  color: var(--icon-color);
+  opacity: 0.5;
+}

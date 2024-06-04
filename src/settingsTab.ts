@@ -1,9 +1,18 @@
-import { PluginSettingTab, type App, Setting, Modal } from "obsidian";
+import {
+	PluginSettingTab,
+	type App,
+	Setting,
+	Modal,
+	sanitizeHTMLToDom,
+	Notice,
+} from "obsidian";
 import type CustomMenuPlugin from "src/main";
 
 export interface HideMenuSettings {
 	hideTitles: string[];
 }
+
+export const FIND_REGEX = /^\/(.*)\/[igmsuy]*$/;
 
 export const DEFAULT_SETTINGS: HideMenuSettings = {
 	hideTitles: [],
@@ -67,6 +76,33 @@ export default class HideMenuSettingsTab extends PluginSettingTab {
 		this.settings = plugin.settings;
 	}
 
+	isValidRegex(value: string) {
+		if (value.match(FIND_REGEX) === null) return true;
+		try {
+			this.plugin.createRegexFromText(value);
+		} catch (_e) {
+			return false;
+		}
+	}
+
+	isError(value: string, ignoreEmpty = false): boolean {
+		return (
+			this.settings.hideTitles.filter((title) => title === value).length > 1 ||
+			(!ignoreEmpty && value.trim().length === 0) ||
+			!this.isValidRegex(value)
+		);
+	}
+
+	reloadError() {
+		this.containerEl.findAll(".command-name").forEach((el) => {
+			const input = el.find("input");
+			const textValue = input.getAttr("command-name");
+			if (textValue) {
+				input.toggleClass("error", this.isError(textValue));
+			}
+		});
+	}
+
 	display(): void {
 		const { containerEl } = this;
 		containerEl.empty();
@@ -74,65 +110,85 @@ export default class HideMenuSettingsTab extends PluginSettingTab {
 
 		/* Import old settings */
 		new Setting(containerEl).setClass("no-display").addButton((button) => {
-			button
-				.setCta()
-				.setButtonText("Import old settings")
-				.onClick(() => {
-					new ImportOldSettings(this.app, async (result) => {
-						this.settings.hideTitles.push(...result);
-						await this.plugin.saveSettings();
-						this.display();
-					}).open();
-				});
+			button.setButtonText("Import old settings").onClick(() => {
+				new ImportOldSettings(this.app, async (result) => {
+					this.settings.hideTitles.push(...result);
+					await this.plugin.saveSettings();
+					this.display();
+				}).open();
+			});
 		});
 
 		/* Hide commands */
+
+		const desc = `<ul>
+		<li>Enter the names of the commands.</li>
+		<li>Deleted commandes will automatically reloaded.</li>
+		<li>Encapsulate the command between <code>/</code> to use a regex match.</li>
+		<div data-callout-metadata="" data-callout-fold="" data-callout="example" class="callout" dir="auto"><div class="callout-title" dir="auto"><div class="callout-icon" dir="auto"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></div><div class="callout-title-inner" dir="auto">Example</div></div><div class="callout-content" dir="auto">
+		<p dir="auto"><code>/(.*)icon(.*)/</code> will hide all commands containing the word <code>icon</code> in it.</p>
+		</div></div>
+		</ul>`;
+
 		new Setting(containerEl)
 			.setHeading()
 			.setName("Hide commands")
-			.setDesc(
-				"Enter the names of the commands. You will need to restart the plugin or Obsidian for the changes to take effect."
-			)
-			.addButton((button) => {
+			.setClass("no-display-control")
+			.setDesc(sanitizeHTMLToDom(desc));
+
+		let temp = "";
+
+		new Setting(containerEl)
+			.setClass("no-display")
+			.setClass("no-border-top")
+			.addText((text) => {
+				text.setPlaceholder("Enter the name of the command");
+				text.inputEl.ariaLabel = "Command name, insensitive";
+				text.onChange((value) => {
+					temp = value;
+					text.inputEl.toggleClass("error", this.isError(value, true));
+					const plusButton = containerEl.find("[label='Add command']");
+					plusButton.toggleClass("is-disabled", this.isError(value));
+					plusButton.toggleAttribute("aria-disabled", this.isError(value));
+				});
+			})
+			.addExtraButton((button) => {
 				button
-					.setButtonText("Add command")
-					.setCta()
+					.setIcon("plus")
+					.setTooltip("Add command")
 					.onClick(async () => {
-						//push at the start of the array
-						this.settings.hideTitles.unshift("");
+						if (this.isError(temp)) {
+							new Notice("Invalid command");
+							return;
+						}
+						this.settings.hideTitles.unshift(temp);
+						temp = "";
 						await this.plugin.saveSettings();
+						this.plugin.monkeyPatch(this.plugin.reloadHideTitles());
 						this.display();
-					});
+					})
+					.extraSettingsEl.setAttr("label", "Add command");
 			});
 
+		new Setting(containerEl).setName("Commands").setHeading();
 		this.settings.hideTitles.forEach((title, index) => {
 			//add class where there are duplicates
-			const duplicate =
-				this.settings.hideTitles.filter((value) => title === value).length > 1;
-			const isEmpty = title.trim().length === 0;
+
 			new Setting(containerEl)
 				.setClass("no-display")
+				.setClass("command-name")
 				.addText((text) => {
 					text.setValue(title).onChange(async (value) => {
 						this.settings.hideTitles[index] = value;
 						//display an error if the text is duplicated
 						await this.plugin.saveSettings();
 						//remove the error class if there is now only one instance of the text
-						const duplicate =
-							this.settings.hideTitles.filter((value) => title === value).length > 1;
-						const isEmpty = value.trim().length === 0;
-						text.inputEl.toggleClass("error", duplicate || isEmpty);
+						text.inputEl.toggleClass("error", this.isError(value));
+						text.inputEl.setAttr("command-name", value);
+						this.reloadError();
 					});
-					text.inputEl.toggleClass(
-						"error",
-						this.settings.hideTitles.filter((value) => title === value).length > 1 ||
-							isEmpty
-					);
-					text.inputEl.ariaLabel = duplicate
-						? "Duplicate command"
-						: isEmpty
-							? "Empty command"
-							: "Command name, insensitive";
+					text.inputEl.setAttr("command-name", title);
+					this.reloadError();
 				})
 				.addExtraButton((button) => {
 					button
@@ -141,6 +197,11 @@ export default class HideMenuSettingsTab extends PluginSettingTab {
 						.onClick(async () => {
 							this.settings.hideTitles.splice(index, 1);
 							await this.plugin.saveSettings();
+							for (const monkey of Object.values(this.plugin.activeMonkeys)) {
+								monkey();
+							}
+							this.plugin.activeMonkeys = {};
+							this.plugin.monkeyPatch(this.plugin.reloadHideTitles());
 							this.display();
 						});
 				});
