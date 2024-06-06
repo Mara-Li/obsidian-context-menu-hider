@@ -30,7 +30,7 @@ div.custom-menu-hide-item {
   box-shadow: 0 0 0 2px var(--text-error);
 }
 
-.menu-separator:has(+ div.custom-menu-hide-item) {
+div.custom-menu-hide-item + .menu-separator {
   display: none;
 }
 
