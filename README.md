@@ -1,4 +1,4 @@
-# Obsidian Customizable Right Click Menu
+# Obsidian Context-menu hider
 
 This plugin allows you to hide any commands, including those of community plugins, to the right click menu. 
 
