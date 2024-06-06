@@ -1,3 +1,8 @@
+## [0.0.4](https://github.com/Mara-Li/obsidian-customizable-menu/compare/0.0.3...0.0.4) (2024-06-06)
+### Bug Fixes
+
+* hide separator after hidden item, not before ([311b6ca](https://github.com/Mara-Li/obsidian-customizable-menu/commit/311b6ca7006fd749d7d93f4d7c3bebec96b039aa))
+
 ## [0.0.3](https://github.com/Mara-Li/obsidian-customizable-menu/compare/0.0.2...0.0.3) (2024-06-04)
 ### Features
 
