@@ -1,3 +1,8 @@
+## [0.0.5](https://github.com/Mara-Li/obsidian-context-menu-hider/compare/0.0.4...0.0.5) (2025-01-03)
+### Bug Fixes
+
+* invalid regex even if they are valid ([d1376b8](https://github.com/Mara-Li/obsidian-context-menu-hider/commit/d1376b86b864007a7de616d92ed1c2bedb415dd9)), closes [#3](https://github.com/Mara-Li/obsidian-context-menu-hider/issues/3)
+
 ## [0.0.4](https://github.com/Mara-Li/obsidian-customizable-menu/compare/0.0.3...0.0.4) (2024-06-06)
 ### Bug Fixes
 
