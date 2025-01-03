@@ -80,7 +80,9 @@ export default class HideMenuSettingsTab extends PluginSettingTab {
 		if (value.match(FIND_REGEX) === null) return true;
 		try {
 			this.plugin.createRegexFromText(value);
-		} catch (_e) {
+			return true;
+		} catch (e) {
+			console.error(e);
 			return false;
 		}
 	}
