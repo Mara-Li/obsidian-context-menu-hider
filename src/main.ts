@@ -38,7 +38,7 @@ export default class CustomMenuPlugin extends Plugin {
 		if (command.match(FIND_REGEX)) {
 			const regex = this.createRegexFromText(command);
 			return title.match(regex);
-		} else return title === command;
+		} else return title.toLowerCase() === command.toLowerCase();
 	}
 
 	reloadHideTitles() {
