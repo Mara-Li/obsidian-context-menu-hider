@@ -1,4 +1,4 @@
-# Obsidian Context-menu hider
+# Context Menu Hider
 
 This plugin allows you to hide any commands, including those of community plugins, to the right click menu. 
 
