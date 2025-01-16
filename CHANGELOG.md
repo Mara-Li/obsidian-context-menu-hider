@@ -1,3 +1,5 @@
+## [0.0.6](https://github.com/Mara-Li/obsidian-context-menu-hider/compare/0.0.5...0.0.6) (2025-01-16)
+
 ## [0.0.5](https://github.com/Mara-Li/obsidian-context-menu-hider/compare/0.0.4...0.0.5) (2025-01-03)
 ### Bug Fixes
 
