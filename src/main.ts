@@ -12,7 +12,7 @@ export default class CustomMenuPlugin extends Plugin {
 
 	monkeyPatch(hideTitles: Set<string>) {
 		const matchWithRegex = this.matchWithRegex.bind(this);
-		console.log("[Customizable Menu] Monkey patching - Hiding menu items");
+		console.log(`[${this.manifest.name}] Monkey patching - Hiding menu items`);
 		this.activeMonkeys.menu = around(MenuItem.prototype, {
 			setTitle(old) {
 				return function (title: string | DocumentFragment) {
@@ -50,7 +50,7 @@ export default class CustomMenuPlugin extends Plugin {
 	}
 
 	async onload() {
-		console.log("Loading customizable menu");
+		console.log(`[${this.manifest.name}] Loading`);
 
 		await this.loadSettings();
 		this.addSettingTab(new HideMenuSettingsTab(this.app, this));
@@ -70,7 +70,7 @@ export default class CustomMenuPlugin extends Plugin {
 	}
 
 	onunload(): void {
-		console.log("Unloading customizable menu");
+		console.log(`[${this.manifest.name}] Unloading`);
 		for (const monkey of Object.values(this.activeMonkeys)) {
 			monkey();
 		}
