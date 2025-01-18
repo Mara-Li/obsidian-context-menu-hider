@@ -1,3 +1,8 @@
+## [0.0.7](https://github.com/Mara-Li/obsidian-context-menu-hider/compare/0.0.6...0.0.7) (2025-01-18)
+### Bug Fixes
+
+* disable arrow key on menu for disabling item. ([7e4a23f](https://github.com/Mara-Li/obsidian-context-menu-hider/commit/7e4a23f29db82af5468f589e11ca932eb133bf44)), closes [#4](https://github.com/Mara-Li/obsidian-context-menu-hider/issues/4)
+
 ## [0.0.6](https://github.com/Mara-Li/obsidian-context-menu-hider/compare/0.0.5...0.0.6) (2025-01-16)
 
 ## [0.0.5](https://github.com/Mara-Li/obsidian-context-menu-hider/compare/0.0.4...0.0.5) (2025-01-03)
