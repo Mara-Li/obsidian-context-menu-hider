@@ -1,3 +1,6 @@
+div.custom-menu-hide-item + .menu-separator,
+div.custom-menu-hide-item,
+.custom-menu-settings .no-display-control .setting-item-control,
 .custom-menu-settings .setting-item.no-display .setting-item-info {
   display: none;
 }
@@ -10,10 +13,6 @@
 
 .custom-menu-settings .setting-item.no-display .setting-item-control textarea {
   height: 30ch;
-}
-
-div.custom-menu-hide-item {
-  display: none;
 }
 
 .custom-menu-settings .error {
@@ -30,13 +29,6 @@ div.custom-menu-hide-item {
   box-shadow: 0 0 0 2px var(--text-error);
 }
 
-div.custom-menu-hide-item + .menu-separator {
-  display: none;
-}
-
-.custom-menu-settings .no-display-control .setting-item-control {
-  display: none;
-}
 
 .custom-menu-settings .no-display-control .setting-item-info {
   width: 100%;

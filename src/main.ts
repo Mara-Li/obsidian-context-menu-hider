@@ -16,10 +16,12 @@ export default class CustomMenuPlugin extends Plugin {
 		this.activeMonkeys.menu = around(MenuItem.prototype, {
 			setTitle(old) {
 				return function (title: string | DocumentFragment) {
-					this.dom.dataset.stylizerTitle = String(title);
+					const dom = this.dom as HTMLElement;
+					dom.dataset.stylizerTitle = String(title);
 					for (const hidden of hideTitles) {
 						if (matchWithRegex(String(title).toLowerCase(), hidden)) {
-							this.dom.classList.add("custom-menu-hide-item");
+							dom.classList.add("custom-menu-hide-item");
+							this.setDisabled(true);
 						}
 					}
 					return old.call(this, title);

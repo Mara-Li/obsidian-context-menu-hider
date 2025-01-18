@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
 	"organizeImports": {
 		"enabled": true
 	},
@@ -76,9 +76,6 @@
 				"noUnsafeNegation": "error",
 				"useGetterReturn": "error",
 				"useValidTypeof": "error"
-			},
-			"nursery": {
-				"noDuplicateJsonKeys": "error"
 			}
 		},
 		"ignore": [
@@ -119,7 +116,7 @@
 		"formatter": {
 			"quoteStyle": "double",
 			"semicolons": "always",
-			"trailingComma": "es5"
+			"trailingCommas": "es5"
 		}
 	},
 	"json": {
